@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tecgurus.net/clienteService/1.0"
+	xmlns:tns="http://www.tecgurus.net/clienteService/1.0" elementFormDefault="qualified">
+	
+	<!-- Elementos  -->
+	
+	<element name="req_cte_data">
+		<complexType>
+			<sequence>
+				<element name="status_init" type="tns:status_operation" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="resp_cte_data">
+		<complexType>
+			<sequence>
+				<element name="status_ope" type="tns:status_operation" />
+				<element name="todos_clientes" type="tns:data_cliente" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<!-- Tipos complejos -->
+	
+	<complexType name="data_cliente">
+		<sequence>
+			<element name="id_cte" type="int" />
+			<element name="nom_cte" type="string" />
+			<element name="ape_p_cte" type="string" />
+			<element name="ape_m_cte" type="string" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="status_operation">
+		<sequence>
+			<element name="status" type="string" />
+			<element name="code" type="string" />
+		</sequence>
+	</complexType>
+	
+</schema>

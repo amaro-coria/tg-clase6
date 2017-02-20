@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.tecgurus.net/clienteService/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="clienteService"
+	targetNamespace="http://www.tecgurus.net/clienteService/1.0">
+
+	<!-- Definicion de datos importados desde el XSD . OJO, facil cometer errores 
+		de dedo -->
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.tecgurus.net/clienteService/">
+			<xsd:import schemaLocation="../schema/clientes.xsd"
+				namespace="http://www.tecgurus.net/clienteService/1.0" />
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<!-- Definicion de los mensajes que forman parte de las operaciones del 
+		WS -->
+	<!-- Tipos para opearacion de lectura -->
+	<wsdl:message name="req_cte_data">
+		<wsdl:part name="req_cte_data" element="tns:req_cte_data" />
+	</wsdl:message>
+
+	<wsdl:message name="resp_cte_data">
+		<wsdl:part name="resp_cte_data" element="tns:resp_cte_data" />
+	</wsdl:message>
+
+	<!-- Definicion del puerto y las operaciones a exponer -->
+	<wsdl:portType name="clienteServicePortType">
+		<!-- Operacion de lectura -->
+		<wsdl:operation name="listarClientesOperation">
+			<wsdl:input name="req_cte_data" message="tns:req_cte_data" />
+			<wsdl:output name="resp_cte_data" message="tns:resp_cte_data" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<!-- Definicion de las operaciones y el uso de los tags expuestos -->
+	<wsdl:binding name="clienteServiceBinding" type="tns:clienteServicePortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="listarClientesOperation">
+			<soap:operation style="document"
+				soapAction="http://www.tecgurus.net/clienteService/listarClientesOperation" />
+			<wsdl:input name="req_cte_data">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="resp_cte_data">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<!-- Exposicion fisica de resources -->
+	<wsdl:service name="clienteService">
+		<wsdl:port name="clienteServicePortType" binding="tns:clienteServiceBinding">
+			<soap:address location="/service/clienteService" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
